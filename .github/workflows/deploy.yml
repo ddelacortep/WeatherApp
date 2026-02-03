@@ -46,15 +46,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 6. Construir y empujar la imagen
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          # Reemplaza 'tu-usuario-docker' con tu nombre de usuario real de Docker Hub
           tags: ddelacortep/weather-app:latest
       
+      # 7. Despliegue en AWS
       - name: Deploy to AWS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -62,12 +61,13 @@ jobs:
           username: ubuntu
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
-            sudo docker image prune -f
-          
+            # Descargamos la imagen que acabamos de subir
             sudo docker pull ddelacortep/weather-app:latest
             
+            # Borramos el contenedor anterior si existe
             sudo docker rm -f weather-app || true
             
+            # Lanzamos el nuevo con la clave y el nombre correctos
             sudo docker run -d \
               -p 80:8000 \
               --name weather-app \
