@@ -1,4 +1,4 @@
-# 🌦️ Weather API Containerized (DevOps Level 3)
+# 🌦️ Weather API Containerized
 
 [![CI Pipeline](https://github.com/ddelacortep/WeatherApp/actions/workflows/main_clima.yml/badge.svg)](https://github.com/ddelacortep/WeatherApp/actions)
 ![Docker Image Size](https://img.shields.io/docker/image-size/ddelacortep/weather-app/latest)
