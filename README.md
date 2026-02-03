@@ -18,6 +18,8 @@ Este proyecto es una **API de Clima** robusta construida con **FastAPI**. No es 
 
 ## 🚀 Instalación y Uso Rápido
 
+Necesitaras una API KEY de [OpenWeather](https://openweathermap.org/)
+
 No necesitas configurar Python ni instalar dependencias. Puedes ejecutar la API directamente desde la imagen pública en Docker Hub:
 
 ```bash
