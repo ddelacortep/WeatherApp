@@ -53,4 +53,4 @@ jobs:
           context: .
           push: true
           # Reemplaza 'tu-usuario-docker' con tu nombre de usuario real de Docker Hub
-          tags: ddelacortep/WeatherApp:latest
+          tags: ddelacortep/weather-app:latest
