@@ -1,4 +1,4 @@
-# 🌦️ Weather App API - Deploy Automatizado en AWS
+# 🌦️ Weather App API - Deploy Automatizado en AWS + DockerHub
 
 Este proyecto es una **API REST** construida con **FastAPI** que proporciona datos climáticos en tiempo real. Lo más destacado es su **arquitectura DevOps**, que permite un ciclo completo de Integración y Despliegue Continuo (CI/CD) desde el código hasta la nube.
 
@@ -45,5 +45,5 @@ La API está activa y disponible públicamente en AWS. Puedes consultarla direct
   "descripcion": "nubes dispersas",
   "humedad": "60%",
   "viento": "4.1 m/s",
-  "proyecto": "Weather App API - DevOps Portfolio"
+  "proyecto": "Weather App API"
 }
