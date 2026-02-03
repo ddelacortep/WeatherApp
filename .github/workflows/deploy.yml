@@ -1,0 +1,40 @@
+name: CI Pipeline Clima
+
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout de código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Build Docker Image
+        run: |
+          docker build -t mi-app-clima:${{ github.sha }} .
+          docker tag mi-app-clima:${{ github.sha }} mi-app-clima:latest
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'mi-app-clima:latest'
+          format: 'table'
+          exit-code: '1' 
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Pipeline completo
+        run: echo "La imagen ha sido construida y escaneada con éxito."
