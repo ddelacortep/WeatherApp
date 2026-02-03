@@ -16,7 +16,11 @@ def get_clima(ciudad: str = "Barcelona"):
     
     return {
         "ciudad": response["name"],
-        "temperatura": response["main"]["temp"],
-        "descripcion": response["weather"][0]["description"]
+        "pais": response["sys"]["country"],
+        "temperatura": f"{response['main']['temp']}°C",
+        "sensacion_termica": f"{response['main']['feels_like']}°C",
+        "humedad": f"{response['main']['humidity']}%",
+        "descripcion": response["weather"][0]["description"],
+        "viento": f"{response['wind']['speed']} m/s"
     }
 
