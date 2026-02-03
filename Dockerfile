@@ -15,7 +15,7 @@ COPY . .
 
 # Aseguramos que los binarios de Python sean visibles
 ENV PATH=/root/.local/bin:$PATH
-ENV API_KEY="e950704881a0294e0c40d024e844c390"
+ENV API_KEY=""
 
 EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
