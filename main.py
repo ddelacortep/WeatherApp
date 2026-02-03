@@ -7,6 +7,19 @@ app = FastAPI()
 
 
 @app.get("/")
+
+def home():
+    return {
+        "proyecto": "Weather App API - DevOps Portfolio",
+        "autor": "ddelacortep",
+        "estado": "Online",
+        "endpoints_disponibles": {
+            "clima": "/clima?ciudad={nombre_ciudad}",
+            "documentacion": "/docs"
+        }
+    }
+
+@app.get("/clima")
 def get_clima(ciudad: str = "Barcelona"):
     api_key = os.getenv('API_KEY', 'mi_api_key_por_defecto')
     url = f"http://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={api_key}&units=metric&lang=es"
