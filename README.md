@@ -1,30 +1,49 @@
-# 🌦️ Weather API Containerized
+# 🌦️ Weather App API - Deploy Automatizado en AWS
 
-[![CI Pipeline](https://github.com/ddelacortep/WeatherApp/actions/workflows/main_clima.yml/badge.svg)](https://github.com/ddelacortep/WeatherApp/actions)
-![Docker Image Size](https://img.shields.io/docker/image-size/ddelacortep/weather-app/latest)
-![Docker Pulls](https://img.shields.io/docker/pulls/ddelacortep/weather-app)
-
-Este proyecto es una **API de Clima** robusta construida con **FastAPI**. No es solo una aplicación, sino una demostración de un ciclo completo de **Software Delivery** utilizando prácticas modernas de **DevOps** y **Seguridad (DevSecOps)**.
+Este proyecto es una **API REST** construida con **FastAPI** que proporciona datos climáticos en tiempo real. Lo más destacado es su **arquitectura DevOps**, que permite un ciclo completo de Integración y Despliegue Continuo (CI/CD) desde el código hasta la nube.
 
 
 
-## 🎯 Objetivos del Proyecto
-* **Contenerización Avanzada:** Uso de Docker con *Multi-stage builds* para reducir la superficie de ataque y el tamaño de la imagen final.
-* **Automatización CI/CD:** Pipeline automatizado íntegramente en GitHub Actions.
-* **Seguridad Integrada:** Escaneo de vulnerabilidades en tiempo real con **Trivy** antes de cada despliegue.
-* **Infraestructura como Código:** Configuración preparada para ser desplegada en entornos productivos como AWS (ECS/App Runner).
+## 🚀 Características del Proyecto
+* **Backend:** FastAPI (Python 3.11).
+* **Contenerización:** Docker para portabilidad total.
+* **Seguridad:** Escaneo de vulnerabilidades con **Trivy**.
+* **Automatización:** GitHub Actions (CI/CD).
+* **Infraestructura:** Desplegado en **AWS EC2 (Ubuntu)**.
 
 ---
 
-## 🚀 Instalación y Uso Rápido
+## 🛠️ Arquitectura y Pipeline CI/CD
 
-Necesitaras una API KEY de [OpenWeather](https://openweathermap.org/)
+El flujo de trabajo automatizado sigue estos pasos tras cada `git push`:
 
-No necesitas configurar Python ni instalar dependencias. Puedes ejecutar la API directamente desde la imagen pública en Docker Hub:
+1.  **Construcción:** GitHub Actions crea la imagen de Docker.
+2.  **Seguridad:** **Trivy** analiza la imagen. Si detecta fallos críticos, el despliegue se detiene.
+3.  **Registro:** La imagen se sube a **Docker Hub**.
+4.  **Despliegue (SSH):** GitHub se conecta a mi instancia de AWS, limpia el entorno antiguo (contenedores e imágenes) y levanta la nueva versión automáticamente.
 
-```bash
-docker run -d \
-  -p 8080:8000 \
-  --name weather-service \
-  -e API_KEY="tu_clave_de_openweather" \
-  ddelacortep/weather-app:latest
+---
+
+## 🌍 Cómo consumir la API
+
+La API está activa y disponible públicamente en AWS. Puedes consultarla directamente o integrarla en cualquier frontend.
+
+**URL Base:** `http://3.237.34.41`
+
+### 1. Consultar el clima de una ciudad
+* **Endpoint:** `/clima`
+* **Método:** `GET`
+* **Parámetros:** `ciudad` (ej: `Madrid`, `Barcelona`, `Tokyo`)
+* **Ejemplo:** [http://3.237.34.41/clima?ciudad=Barcelona](http://3.237.34.41/clima?ciudad=Barcelona)
+
+### 2. Formato de Respuesta
+```json
+{
+  "ciudad": "Barcelona",
+  "pais": "ES",
+  "temperatura": "15°C",
+  "descripcion": "nubes dispersas",
+  "humedad": "60%",
+  "viento": "4.1 m/s",
+  "proyecto": "Weather App API - DevOps Portfolio"
+}
