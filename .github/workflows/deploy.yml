@@ -54,3 +54,14 @@ jobs:
           push: true
           # Reemplaza 'tu-usuario-docker' con tu nombre de usuario real de Docker Hub
           tags: ddelacortep/weather-app:latest
+      
+      - name: Deploy to AWS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }} # La IP de tu instancia
+          username: ubuntu
+          key: ${{ secrets.AWS_PRIVATE_KEY }} # Tu archivo .pem
+          script: |
+            sudo docker pull ddelacortep/weather-app:latest
+            sudo docker rm -f weather-app || true
+            sudo docker run -d -p 80:8000 --name weather-app --restart always -e API_KEY=${{ secrets.API_KEY }} ddelacortep/weather-app:latest
