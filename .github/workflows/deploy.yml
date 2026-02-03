@@ -61,19 +61,15 @@ jobs:
           username: ubuntu
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
-            # 1. Parar el contenedor actual
+            # 1. Parar y eliminar rastro total
             sudo docker stop weather-app || true
-            
-            # 2. Eliminar el contenedor
             sudo docker rm weather-app || true
-            
-            # 3. Eliminar la imagen vieja para no dejar rastro
             sudo docker rmi ddelacortep/weather-app:latest || true
             
-            # 4. Hacer el pull de la nueva imagen desde Docker Hub
+            # 2. Bajar imagen limpia
             sudo docker pull ddelacortep/weather-app:latest
             
-            # 5. Crear y ejecutar el nuevo contenedor
+            # 3. Ejecutar (FÍJATE BIEN EN LA LÍNEA DE API_KEY)
             sudo docker run -d \
               --name weather-app \
               -p 80:8000 \
