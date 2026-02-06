@@ -61,18 +61,15 @@ jobs:
           username: ubuntu
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
-            # 1. Parar y eliminar rastro total
             sudo docker stop weather-app || true
             sudo docker rm weather-app || true
-            sudo docker rmi ddelacortep/weather-app:latest || true
             
-            # 2. Bajar imagen limpia
-            sudo docker pull ddelacortep/weather-app:latest
+            # COMANDO DE PRUEBA: esto imprimirá la longitud de la clave en los logs de GitHub
+            # (No imprimas la clave entera por seguridad, solo su longitud para ver si llega algo)
+            echo "Longitud de la clave recibida: ${#API_KEY}" 
             
-            # 3. Ejecutar (FÍJATE BIEN EN LA LÍNEA DE API_KEY)
             sudo docker run -d \
               --name weather-app \
               -p 80:8000 \
-              --restart always \
               -e API_KEY="${{ secrets.API_KEY }}" \
               ddelacortep/weather-app:latest
